@@ -10,7 +10,7 @@ spring:
   jpa:
     hibernate:
       # possible values: validate | update | create | create-drop
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
     url: jdbc:postgresql://localhost/app
     username: app

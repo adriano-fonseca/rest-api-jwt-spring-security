@@ -69,7 +69,7 @@ public class AuthenticationRestControllerTest {
 
         JwtAuthenticationRequest jwtAuthenticationRequest = new JwtAuthenticationRequest("user", "password");
 
-        this.mvc.perform(post("/auth")
+        this.mvc.perform(post("/api/auth")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(jwtAuthenticationRequest)))
                 .andExpect(status().is2xxSuccessful());
