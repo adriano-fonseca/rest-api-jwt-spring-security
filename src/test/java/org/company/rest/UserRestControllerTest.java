@@ -55,15 +55,12 @@ public class UserRestControllerTest {
 
     @Test
     public void shouldGetUnauthorizedWithoutRole() throws Exception {
-
-        this.mvc.perform(get("/user"))
-                .andExpect(status().isUnauthorized());
+        this.mvc.perform(get("/user")).andExpect(status().isUnauthorized());
     }
 
     @Test
     @WithMockUser(roles = "USER")
     public void getPersonsSuccessfullyWithUserRole() throws Exception {
-
         Authority authority = new Authority();
         authority.setId(1L);
         authority.setName(AuthorityName.ROLE_ADMIN);
@@ -76,13 +73,9 @@ public class UserRestControllerTest {
         user.setLastPasswordResetDate(new Date(System.currentTimeMillis() + 1000 * 1000));
 
         JwtUser jwtUser = JwtUserFactory.create(user);
-
         when(this.jwtTokenUtil.getUsernameFromToken(any())).thenReturn(user.getUsername());
-
         when(this.userDetailsService.loadUserByUsername(eq(user.getUsername()))).thenReturn(jwtUser);
-
-        this.mvc.perform(get("/user").header("Authorization", "Bearer nsodunsodiuv"))
-                .andExpect(status().is2xxSuccessful());
+        this.mvc.perform(get("/user").header("Authorization", "Bearer nsodunsodiuv")).andExpect(status().is2xxSuccessful());
     }
 
 }
