@@ -51,6 +51,11 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 ```
 
+## Accessing Swagger Documentatio
+
+You can do that hitting the URL bellow locally.
+
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) 
 
 ## Copyright and license
 
