@@ -1,0 +1,34 @@
+# config context path to "/" by setting an empty string
+server:
+  contextPath: 
+
+# JACKSON
+spring:
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+  jpa:
+    hibernate:
+      # possible values: validate | update | create | create-drop
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost/app
+    username: app
+    password: app
+    driver-class-name: org.postgresql.Driver
+
+jwt:
+  header: Authorization
+  secret: 4Da80e78dcF144ea9143a05e58DA1620
+  expiration: 604800
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+
+  
+
+#logging:
+#  level:
+#    org.springframework:
+#      security: DEBUG

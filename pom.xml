@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.company</groupId>
+	<artifactId>rest-api-jwt-spring-security</artifactId>
+	<version>0.1.0</version>
+	<packaging>jar</packaging>
+
+	<name>rest-api-jwt-spring-security</name>
+	<description>This project demonstrates a conceptual Rest API with protected endpoints, through the Spring Security customized to work with JWT</description>
+
+	<licenses>
+		<license>
+			<name>MIT license</name>
+			<url>https://raw.githubusercontent.com/adriano-fonseca/rest-api-jwt-spring-security/master/LICENSE</url>
+		</license>
+	</licenses>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.4.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+
+		<jjwt.version>0.7.0</jjwt.version>
+		<jacoco.version>0.7.9</jacoco.version>
+
+		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+		<docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mobile</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jjwt.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.3.2</version>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.spotify</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>0.4.12</version>
+					<configuration>
+						<serverId>docker-hub</serverId>
+						<imageName>adrianofonseca/rest-api-jwt-spring-security</imageName>
+						<baseImage>openjdk:8</baseImage>
+						<resources>
+							<resource>
+								<targetPath>/</targetPath>
+								<directory>${project.build.directory}</directory>
+								<include>${project.build.finalName}.jar</include>
+							</resource>
+						</resources>
+						<imageTags>
+							<imageTag>${project.version}</imageTag>
+							<imageTag>latest</imageTag>
+						</imageTags>
+
+						<serverId>docker-hub</serverId>
+						<!-- <registryUrl>https://index.docker.io/v1/</registryUrl> -->
+					</configuration>
+				</plugin>
+			</plugins>
+		</plugins>
+	</build>
+
+	<!-- <profiles> -->
+	<!-- <profile> -->
+	<!-- <id>jacoco</id> -->
+	<!-- <build> -->
+	<!-- <plugins> -->
+	<!-- <plugin> -->
+	<!-- <groupId>org.jacoco</groupId> -->
+	<!-- <artifactId>jacoco-maven-plugin</artifactId> -->
+	<!-- <version>${jacoco.version}</version> -->
+	<!-- <executions> -->
+	<!-- <execution> -->
+	<!-- <id>prepare-agent</id> -->
+	<!-- <goals> -->
+	<!-- <goal>prepare-agent</goal> -->
+	<!-- </goals> -->
+	<!-- </execution> -->
+	<!-- <execution> -->
+	<!-- <id>report</id> -->
+	<!-- <phase>prepare-package</phase> -->
+	<!-- <goals> -->
+	<!-- <goal>report</goal> -->
+	<!-- </goals> -->
+	<!-- </execution> -->
+	<!-- <execution> -->
+	<!-- <id>post-unit-test</id> -->
+	<!-- <phase>test</phase> -->
+	<!-- <goals> -->
+	<!-- <goal>report</goal> -->
+	<!-- </goals> -->
+	<!-- <configuration> -->
+	<!-- Sets the path to the file which contains the execution data. -->
+
+	<!-- <dataFile>target/jacoco.exec</dataFile> -->
+	<!-- Sets the output directory for the code coverage report. -->
+	<!-- <outputDirectory>target/jacoco-ut</outputDirectory> -->
+	<!-- </configuration> -->
+	<!-- </execution> -->
+	<!-- </executions> -->
+	<!-- </plugin> -->
+	<!-- </plugins> -->
+	<!-- </build> -->
+	<!-- </profile> -->
+	<!-- </profiles> -->
+
+</project>
