@@ -1,7 +1,15 @@
 # JWT Spring Security API Rest
 
 ## Requirements
-This demo is build with with Maven 3 and Java 1.8.
+This demo is build with with Maven 3, Java 1.8 and Postgres. 
+You can run a postgress server with the currently required configuration trough the command bellow:
+
+```
+docker container run --name db --rm -p 5432:5432 -v /home/adr-fonseca/docker/docker-postgres/postgresql/:/var/lib/postgresql -e DB_USER=app -e DB_PASS=app -e DB_NAME=app adrianofonseca/postgres:9.5
+
+
+```  
+
 
 ## Usage
 Just start the application with the Spring Boot maven plugin (`mvn spring-boot:run`). The application is
@@ -43,9 +51,11 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 ```
 
-*Hint: For other databases like MySQL sequences don't work for ID generation. So you have to change the GenerationType in the entity beans to 'AUTO' or 'IDENTITY'.*
+## Accessing Swagger Documentatio
 
-You can find a reference of all application properties [here](http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html).
+You can do that hitting the URL bellow locally.
+
+[http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) 
 
 ## Copyright and license
 
